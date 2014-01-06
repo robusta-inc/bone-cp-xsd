@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://com.jolbox.bonecp" targetNamespace="http://com.jolbox.bonecp"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" >
+    <xsd:element name="bonecp-config" type="boneCPConfigType"/>
+    <xsd:simpleType name="propertyNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="minConnectionsPerPartition"/>
+            <xsd:enumeration value="maxConnectionsPerPartition"/>
+            <xsd:enumeration value="acquireIncrement"/>
+            <xsd:enumeration value="partitionCount"/>
+            <xsd:enumeration value="jdbcUrl"/>
+            <xsd:enumeration value="username"/>
+            <xsd:enumeration value="password"/>
+            <xsd:enumeration value="connectionTestStatement"/>
+            <xsd:enumeration value="idleConnectionTestPeriodInMinutes"/>
+            <xsd:enumeration value="idleConnectionTestPeriodInSeconds"/>
+            <xsd:enumeration value="idleMaxAgeInMinutes"/>
+            <xsd:enumeration value="idleMaxAgeInSeconds"/>
+            <xsd:enumeration value="statementsCacheSize"/>
+            <xsd:enumeration value="closeConnectionWatch"/>
+            <xsd:enumeration value="logStatementsEnabled"/>
+            <xsd:enumeration value="acquireRetryDelayInMs"/>
+            <xsd:enumeration value="lazyInit"/>
+            <xsd:enumeration value="transactionRecoveryEnabled"/>
+            <xsd:enumeration value="acquireRetryAttempts"/>
+            <xsd:enumeration value="disableJMX"/>
+            <xsd:enumeration value="queryExecuteTimeLimitInMs"/>
+            <xsd:enumeration value="poolAvailabilityThreshold"/>
+            <xsd:enumeration value="disableConnectionTracking"/>
+            <xsd:enumeration value="connectionTimeoutInMs"/>
+            <xsd:enumeration value="closeConnectionWatchTimeoutInMs"/>
+            <xsd:enumeration value="maxConnectionAgeInSeconds"/>
+            <xsd:enumeration value="serviceOrder"/>
+            <xsd:enumeration value="statisticsEnabled"/>
+            <xsd:enumeration value="defaultAutoCommit"/>
+            <xsd:enumeration value="defaultReadOnly"/>
+            <xsd:enumeration value="externalAuth"/>
+            <xsd:enumeration value="deregisterDriverOnClose"/>
+            <xsd:enumeration value="nullOnConnectionTimeout"/>
+            <xsd:enumeration value="resetConnectionOnClose"/>
+            <xsd:enumeration value="detectUnresolvedTransactions"/>
+            <xsd:enumeration value="poolStrategy"/>
+            <xsd:enumeration value="closeOpenStatements"/>
+            <xsd:enumeration value="detectUnclosedStatements"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="propertyType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="name" type="propertyNameType"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="boneCPConfigType">
+        <xsd:sequence>
+            <xsd:element type="defaultConfigType" name="default-config" minOccurs="0" maxOccurs="1"/>
+            <xsd:element type="namedConfigType" name="named-config" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="defaultConfigType">
+        <xsd:sequence>
+            <xsd:element type="propertyType" name="property" maxOccurs="unbounded" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="namedConfigType">
+        <xsd:complexContent>
+            <xsd:extension base="defaultConfigType">
+                <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>
